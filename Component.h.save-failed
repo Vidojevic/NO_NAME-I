@@ -1,0 +1,77 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+#ifndef COMPONENT_H
+#define COMPONENT_H
+
+//Base Class
+class Component
+{
+    public:
+        Component();
+        virtual ~Component();
+
+
+        bool has = false;    //Da li entity poseduje komponentu
+
+
+    protected:
+    private:
+};
+
+
+
+//CTransform
+class CTransform
+{
+
+public:
+    sf::Vector2f position;     //Position of the entity
+    sf::Vector2f prevPos;      //Previous position of the entity. Ova varijabla se inicijalizuje preko EntityManagera.setPrevPos funkcije koja se poziva u sam vrh main loop-a u main()
+    sf::Vector2f velocity;     //Velocity of the entity
+
+public:
+//    CTransform ();
+    CTransform (const sf::Vector2f pos, const sf::Vector2f vel)
+                : position(pos), velocity(vel) {}
+
+
+};
+
+
+
+//CBoundingBox
+class CBoundingBox
+{
+public:
+    CBoundingBox ();
+    CBoundingBox (const sf::Vector2f sizeBB)
+                  : sizeBB(sizeBB), halfSizeBB(sizeBB.x / 2, sizeBB.y / 2) {}
+
+public:
+    sf::Vector2f sizeBB;           //Size of the Bounding Box
+    sf::Vector2f halfSizeBB;       //Half size of the Bounding Box
+
+};
+
+
+//CAssets
+class CAssets
+{
+public:
+    sf::Sprite sprite;
+
+//Konstruktor
+public:
+    CAssets (sf::Texture& texture)
+    {
+        sprite.setTexture(texture);
+        sprite.setTextureRect(sf::IntRect(0,0, 51,94));
+    }
+
+};
+
+
+
+
+#endif // COMPONENT_H
